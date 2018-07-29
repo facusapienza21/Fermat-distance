@@ -19,7 +19,7 @@ def d_distance( distance_matrix,
     for i in range(Large):
         
         local_distances = np.array([distance_matrix[i,j] for j in range(Large)])
-        order = heapq.nsmallest(k_nn, range(Large), local_distances.take)
+        order = nsmallest(k_nn, range(Large), local_distances.take)
         
         for j in order:
             adj_list[i].append( (j ,np.power(distance_matrix[i,j], d_param )) )
