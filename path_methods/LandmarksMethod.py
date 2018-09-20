@@ -10,18 +10,18 @@ from path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
 class DistanceOnTree:
 
     def __init__(self, root, prev, distances):
-        n = len(prev)
+        self.n = len(prev)
         self.et = self.euler_tour(root, prev)
         self.root = root
         self.distances = distances
-        self.right = self.get_right(self.et, n)
+        self.right = self.get_right(self.et, self.n)
         self.rmq = self.get_rmq([distances[x] for x in self.et])
 
     def euler_tour(self, root, prev):
         children = [[] for _ in prev]
-        for node, prev in enumerate(prev):
-            if node != root and prev >= 0:  # -9999 is used to indicate that there is no previous node
-                children[prev].append(node)
+        for node, parent in enumerate(prev):
+            if node != root and parent >= 0:  # -9999 is used to indicate that there is no previous node
+                children[parent].append(node)
 
         res = []
 
@@ -36,12 +36,12 @@ class DistanceOnTree:
         return res
 
     def get_right(self, et, n):
-        res = [-1 for _ in range(n)]
+        res = [-1] * n
         for index, node in enumerate(et):
             res[node] = index
         return res
 
-    def get_rmq(self, xs):
+    def get_rmq_posta(self, xs):
         res = [xs[:]]
         n = len(xs)
         p = 1
@@ -51,6 +51,20 @@ class DistanceOnTree:
             )
             p *= 2
         return res
+
+    def get_rmq(self, xs):
+        r = np.array(xs)
+        res = [r]
+        n = len(xs)
+        p = 1
+
+        while p < n:
+            r = np.append(np.min([r[:n-p], r[p:n]], axis=0), r[n-p:])
+            res.append(r)
+            p *= 2
+
+        return res
+
 
     def get_lca_distance(self, a, b):
         x, y = sorted([self.right[a], self.right[b]])
@@ -66,6 +80,7 @@ class LandmarksMethod(DistanceCalculatorMethod):
     def __init__(self, fermat):
         super().__init__(fermat)
         self.landmarks_trees = []
+        self.n = None
         assert fermat.k is not None
 
     def get_near_points(self, distances):
@@ -88,7 +103,7 @@ class LandmarksMethod(DistanceCalculatorMethod):
     def create_adj_matrix(self, l, near_columns, near_values, distances):
 
         n = distances.shape[0]
-        m = dok_matrix((n, n), dtype='f')
+        m = dok_matrix((n, n), dtype='d')
 
         for row in range(n):
             for column, value in zip(near_columns[row], near_values[row]):
@@ -98,25 +113,47 @@ class LandmarksMethod(DistanceCalculatorMethod):
 
         return m
 
+    def create_adj_matrix_all(self, landmarks, distances):
+
+        k = self.fermat.k
+        n = distances.shape[0]
+
+        columns = []
+        rows = []
+        values = []
+
+        for i in range(n):
+            if i in landmarks:
+                values.extend(distances[i, j] for j in range(n))
+                columns.extend(range(n))
+                rows.extend([i]*n)
+            else:
+                smallest_values_and_columns = heapq.nsmallest(k + 1, zip(distances[i].tolist()[0], list(range(n))))
+                vs, cs = zip(*smallest_values_and_columns)
+                values.extend(vs)
+                columns.extend(cs)
+                rows.extend([i]*len(vs))
+
+        return csr_matrix((values, (rows, columns)), shape=(n, n))
+
     def fit(self, distances):
+
+        self.n = distances.shape[0]
 
         landmarks = self.fermat.random.sample(range(distances.shape[0]), self.fermat.landmarks)
 
-        near_columns, near_values = self.get_near_points(distances)
+        adj = self.create_adj_matrix_all(landmarks, distances)
 
-        for l in landmarks:
-            adj = self.create_adj_matrix(l, near_columns, near_values, distances)
+        distance, prev = shortest_path(
+            csgraph=adj.power(self.fermat.alpha),
+            method='D',
+            return_predecessors=True,
+            directed=False,
+            indices=landmarks
+        )
 
-            distance, prev = shortest_path(
-                csgraph=adj.power(self.fermat.alpha),
-                method='D',
-                return_predecessors=True,
-                directed=False,
-                indices=[l]
-            )
-
-            landmark_tree = DistanceOnTree(l, prev=prev[0], distances=distance[0])
-
+        for i in range(len(landmarks)):
+            landmark_tree = DistanceOnTree(landmarks[i], prev=prev[i], distances=distance[i])
             self.landmarks_trees.append(landmark_tree)
 
     def up(self, a, b):
@@ -139,7 +176,11 @@ class LandmarksMethod(DistanceCalculatorMethod):
             return self.old_up(a, b)
 
     def get_distances(self):
-        pass
+        res = np.matrix(np.zeros((self.n, self.n)))
+        for i in range(self.n):
+            for j in range(i):
+                res[i, j] = res[j, i] = self.get_distance(i, j)
+        return res
 
 
 
