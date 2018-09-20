@@ -1,9 +1,9 @@
 import heapq
-import numpy as np
-from scipy.sparse import csr_matrix, lil_matrix
+
+from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import shortest_path
 
-from path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
+from fermat.path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
 
 
 class DijkstraMethod(DistanceCalculatorMethod):

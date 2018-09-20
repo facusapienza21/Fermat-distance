@@ -4,7 +4,7 @@ import numpy as np
 from scipy.sparse import csr_matrix, dok_matrix
 from scipy.sparse.csgraph import shortest_path
 
-from path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
+from fermat.path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
 
 
 class DistanceOnTree:

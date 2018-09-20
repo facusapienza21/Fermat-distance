@@ -1,13 +1,13 @@
-from path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
+from fermat.path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
 
 
 class Methods:
 
     def __init__(self):
 
-        from path_methods.DijkstraMethod import DijkstraMethod
-        from path_methods.FloydWarshallMethod import FloydWarshallMethod
-        from path_methods.LandmarksMethod import LandmarksMethod
+        from fermat.path_methods.DijkstraMethod import DijkstraMethod
+        from fermat.path_methods.FloydWarshallMethod import FloydWarshallMethod
+        from fermat.path_methods.LandmarksMethod import LandmarksMethod
 
         self.methods = {
             'L': LandmarksMethod,
