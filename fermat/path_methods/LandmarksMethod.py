@@ -162,7 +162,7 @@ class LandmarksMethod(DistanceCalculatorMethod):
     def down(self, a, b):
         return max(abs(lt.distances[a] - lt.distances[b]) for lt in self.landmarks_trees)
 
-    def old_up(self, a, b):
+    def no_lca(self, a, b):
         return min(lt.distances[a] + lt.distances[b] for lt in self.landmarks_trees)
 
     def get_distance(self, a, b):
@@ -172,8 +172,8 @@ class LandmarksMethod(DistanceCalculatorMethod):
             return self.down(a, b)
         if self.fermat.estimator == 'mean':
             return (self.up(a, b) + self.down(a, b)) / 2
-        if self.fermat.estimator == 'old_up':
-            return self.old_up(a, b)
+        if self.fermat.estimator == 'no_lca':
+            return self.no_lca(a, b)
 
     def get_distances(self):
         res = np.matrix(np.zeros((self.n, self.n)))
