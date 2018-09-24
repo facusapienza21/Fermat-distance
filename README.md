@@ -8,7 +8,7 @@ Fermat is a Python library that computes the d-distance estimator proposed in 'W
 
 - Exact and approximate algorithms to compute the Fermat distance (also called d-distance).
 - Examples explaining how to use this package.
-    * [Quick start] https://github.com/facusapienza21/Fermat-distance/blob/master/examples/Fermat_quick_start.ipynb
+    * [Quick start] 
 
 
 # Installation
