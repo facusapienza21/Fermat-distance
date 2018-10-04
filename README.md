@@ -1,8 +1,10 @@
 # Fermat
+---
 
 Fermat is a Python library that computes the Fermat distance estimator (also called d-distance estimator) proposed in 'Weighted Geodesic Distance Following Fermat's Principle' (see https://openreview.net/pdf?id=BJfaMIJwG).
 
 # Implementation
+---
 
 The optimization performet to compute the Fermat distance estimator (see https://openreview.net/pdf?id=BJfaMIJwG) runs all over the possible paths of points between each pair of points. A first approach the is
 
@@ -18,22 +20,21 @@ If the number of points n is too high and neither FW and D runs ij appropiate ti
 
 
 # Parameters
+---
 
         alpha: float
             Parameter of the Fermat distance.
-
+            
         path_method: string ['FW','D','L']
-
+        
             Options are:
 
-                    'FW'    -- Computes the exact Fermat distance using the Floyd-Warshall algorithm. The complexity is
-                             O[N^3] where N is the number of data points.
+                    'FW'    -- Computes the exact Fermat distance using the Floyd-Warshall algorithm. 
 
                     'D'     --  Computes an approximation of the Fermat distance using k nearest neighbours and the
-                             Dijkstra algorithm. The complexity is O[N*(k*N*log N)]
+                             Dijkstra algorithm. 
 
-                    'L'     -- Computes an approximation of the Fermat distance using landmarks and k-nn. The complexity
-                             is O[l*(k*N*log N)] where l is the number of landmarks considered.
+                    'L'     -- Computes an approximation of the Fermat distance using landmarks and k-nn.
 
         k: integer, optional
             Number of nearest neighbors to be considered.
@@ -44,6 +45,7 @@ If the number of points n is too high and neither FW and D runs ij appropiate ti
             Only available when path_method = 'L'
 
         estimator: string ['up', 'down', 'mean', 'no_lca'] (default: 'up')
+        
             When computing an approximation of the Fermat distance, there are lower and upper bounds of the true value.
             If estimator == 'no_lca', the distance for a pair of points is calculated as the minimum sum of the distance
                 from both points to one of the landmarks.
@@ -56,9 +58,6 @@ If the number of points n is too high and neither FW and D runs ij appropiate ti
 
         seed: int, optional
             Only available when path_method = 'L'
-
-
-
 
 # Features
 ---
@@ -73,7 +72,7 @@ If the number of points n is too high and neither FW and D runs ij appropiate ti
 ---
 #### Ubuntu
 
-Run `python3 setup.py build && sudo python3 setup.py install`
+Run`'python3 setup.py build && sudo python3 setup.py install'`
 
 If you are working in Anaconda, then:
 
@@ -83,7 +82,7 @@ If you are working in Anaconda, then:
 ---
 
 If you have an open-ended or a research question:
--  f.sapienza@aristas.com.ar
+-  'f.sapienza@aristas.com.ar'
 
 
 
