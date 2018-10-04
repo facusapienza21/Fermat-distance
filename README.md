@@ -5,7 +5,7 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 ---
 ### Implementation
 
-The optimization performet to compute the Fermat distance estimator (see https://openreview.net/pdf?id=BJfaMIJwG) runs all over the possible paths of points between each pair of points. A first approach the is
+The optimization performet to compute the Fermat distance estimator (see https://openreview.net/pdf?id=BJfaMIJwG) runs all over the possible paths of points between each pair of points. A first approach is
 
    * FW: permorf the _Floyd-Warshall algorithm_ that gives the exact Fermat distance estimator in O( n^3 ) operations.
    
@@ -13,7 +13,10 @@ However, with probability arbitrary high we can restrict the minimum path search
    
    * D: Computes an approximation of the Fermat distance using k nearest neighbours and the _Dijkstra algorithm_. The complexity is O( n * ( k *n * log n ) )
 
-If the number of points n is too high and neither FW and D runs ij appropiate times, we implemente a grady version based on the idea of landmarks. Let consider a set of l points y_1, ... , y_l \in { x_1, ... , x_n } , with l << n, and 
+If the number of points n is too high and neither FW and D runs in appropiate times, we implemente a gready version based on  landmarks. Let consider a set of l of point in the data set (the landmarks) and denote s_i the distance of the point s to the landmark i. Then, we can bound the distance d(s,t) between any two points s and t as
+   _lower = max_i { | s_i - t_i | } <= d(s,t) <= min_i { s_i + t_i } = upper_
+and estimate d(s,t) as a function of _lower_ and _upper_.
+
 
    * L: Computes an approximation of the Fermat distance using landmarks and k-nn. The complexity is O( l * ( k * n * log n ) ).
 
