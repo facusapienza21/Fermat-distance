@@ -1,9 +1,9 @@
-# Fermat
+# Fermat distance
 
 Fermat is a Python library that computes the Fermat distance estimator (also called d-distance estimator) proposed in 'Weighted Geodesic Distance Following Fermat's Principle' (see https://openreview.net/pdf?id=BJfaMIJwG).
 
 ---
-# Implementation
+### Implementation
 
 The optimization performet to compute the Fermat distance estimator (see https://openreview.net/pdf?id=BJfaMIJwG) runs all over the possible paths of points between each pair of points. A first approach the is
 
@@ -18,7 +18,7 @@ If the number of points n is too high and neither FW and D runs ij appropiate ti
    * L: Computes an approximation of the Fermat distance using landmarks and k-nn. The complexity is O( l * ( k * n * log n ) ).
 
 ---
-# Parameters
+### Parameters
 
         alpha: float
             Parameter of the Fermat distance.
@@ -58,7 +58,7 @@ If the number of points n is too high and neither FW and D runs ij appropiate ti
             Only available when path_method = 'L'
 
 ---
-# Features
+### Features
 
 - Exact and approximate algorithms to compute the Fermat distance.
 - Examples explaining how to use this package.
@@ -66,9 +66,9 @@ If the number of points n is too high and neither FW and D runs ij appropiate ti
     * [MNIST data set]
 
 ---
-# Installation
+### Installation
 
-#### Ubuntu
+###### Ubuntu
 
 Run`'python3 setup.py build && sudo python3 setup.py install'`
 
@@ -77,13 +77,13 @@ If you are working in Anaconda, then:
 ...
 
 ---
-# Support
+### Support
 
 If you have an open-ended or a research question:
 -  'f.sapienza@aristas.com.ar'
 
 ---
-# Citing Fermat distance
+### Citing Fermat distance
 
 When [citing fermat in academic papers and theses], please use this
 BibTeX entry:
