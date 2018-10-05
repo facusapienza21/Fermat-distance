@@ -7,9 +7,9 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 1. [Instalation](#instalation)
 2. [Implementation](#implementation)
    * [Algorithm](#algorithm)
-        i. [Floyd-Warshall](#floyd-warshall)
-        ii. [Dijkstra](#dijkstra)
-        iii. [Landmarks](#landmarks)
+     i. [Floyd-Warshall](#floyd-warshall)
+     ii. [Dijkstra](#dijkstra)
+     iii. [Landmarks](#landmarks)
    * [Parameters](#parameters)
    * [Methods](#methods)
 3. [Features](#features)
@@ -64,12 +64,12 @@ and estimate d(s,t) as a function of _lower_ and _upper_ (for example, d(s,t) ~ 
 
       Options are:
 
-      -'FW'    -- Computes the exact Fermat distance using the Floyd-Warshall algorithm. 
+      - 'FW': Computes the exact Fermat distance using the Floyd-Warshall algorithm. 
 
-      -'D'     --  Computes an approximation of the Fermat distance using k nearest neighbours and the
+      - 'D': Computes an approximation of the Fermat distance using k nearest neighbours and the
                        Dijkstra algorithm. 
 
-              -'L'     -- Computes an approximation of the Fermat distance using landmarks and k-nn.
+      - 'L': Computes an approximation of the Fermat distance using landmarks and k-nn.
 
   - k: integer, optional
       Number of nearest neighbors to be considered.
