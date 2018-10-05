@@ -29,7 +29,7 @@ from fermat import Fermat
 
 However, if you are working in Ubuntu (or any similar distribution) you can install the Fermat package running the following command in a terminal 
 
-`'python3 setup.py build && sudo python3 setup.py install'`
+`python3 setup.py build && sudo python3 setup.py install`
 
 If you are working in Anaconda, then:
 ...
