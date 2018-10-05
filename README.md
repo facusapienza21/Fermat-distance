@@ -64,9 +64,9 @@ and estimate d(s,t) as a function of _lower_ and _upper_ (for example, d(s,t) ~ 
 
       Options are:
 
-              -'FW'    -- Computes the exact Fermat distance using the Floyd-Warshall algorithm. 
+      -'FW'    -- Computes the exact Fermat distance using the Floyd-Warshall algorithm. 
 
-              -'D'     --  Computes an approximation of the Fermat distance using k nearest neighbours and the
+      -'D'     --  Computes an approximation of the Fermat distance using k nearest neighbours and the
                        Dijkstra algorithm. 
 
               -'L'     -- Computes an approximation of the Fermat distance using landmarks and k-nn.
@@ -99,6 +99,20 @@ and estimate d(s,t) as a function of _lower_ and _upper_ (for example, d(s,t) ~ 
       - X: input distances matrix
     - Return
       - self
+
+  - get_distance(a, b)
+    - Parameters
+      - a: int, index of the first data point
+      - b: int, index of the second data point
+    - Return
+      - float, the Fermat distance between poins a and b
+      
+  - get_distances()
+    - Parameters
+      - None
+    - Return
+      - np.matrix, Fermat distance between all pairs of points
+
 
 ### Features
 
