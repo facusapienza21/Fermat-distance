@@ -94,6 +94,11 @@ and estimate d(s,t) as a function of _lower_ and _upper_ (for example, d(s,t) ~ 
 
 #### Methods
 
+  - fit(X)
+      * Parameters
+            ** X: input distances matrix
+      * Return
+            ** self
 
 ### Features
 
