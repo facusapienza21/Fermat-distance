@@ -40,11 +40,11 @@ The optimization performet to compute the Fermat distance estimator (see https:/
 
 ##### Floyd-Warshall
 
-Permorf the _Floyd-Warshall algorithm_ that gives the exact Fermat distance estimator in O( n^3 ) operations between all possible paths that conects each pair of points.
+Permorf the _Floyd-Warshall algorithm_ that gives the exact Fermat distance estimator in `O( n^3 )` operations between all possible paths that conects each pair of points.
 
 ##### Dijkstra
    
-With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with k = O(log n). Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The total running time is O( n * ( k * n * log n ) )
+With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with `k = O(log n)`. Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The total running time is `O( n * ( k * n * log n ) )`.
 
 ##### Landmarks
 
@@ -124,7 +124,7 @@ and estimate `d(s,t)` as a function of `lower` and `upper` (for example, `d(s,t)
 ### Support
 
 If you have an open-ended or a research question:
--  'f.sapienza@aristas.com.ar'
+-  `'f.sapienza@aristas.com.ar'`
 
 ### Licence
 
