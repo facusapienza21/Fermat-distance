@@ -15,7 +15,7 @@ However, with probability arbitrary high we can restrict the minimum path search
 
 If the number of points n is too high and neither FW and D runs in appropiate times, we implemente a gready version based on  landmarks. Let consider a set of l of point in the data set (the landmarks) and denote s_j the distance of the point s to the landmark j. Then, we can bound the distance d(s,t) between any two points s and t as
 
-_lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper_
+'lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper'
 
 and estimate d(s,t) as a function of _lower_ and _upper_ (for example, d(s,t) ~ (_lower + upper_) / 2 ).
 
