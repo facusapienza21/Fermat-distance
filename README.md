@@ -21,11 +21,11 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 
 You can import Fermat directly from the folder we you have the repository. For example
 
-'''python
+```python
 import sys
 sys.path.append(path_to_FermatFolder)
 from fermat import Fermat
-'''
+```
 
 However, if you are working in Ubuntu (or any similar distribution) you can install the Fermat package running the following command in a terminal 
 
