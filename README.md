@@ -19,7 +19,7 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 
 ### Installation
 
-You can import Fermat directly from the folder we you have the repository. For example
+You can import Fermat directly from the folder where you have the repository. For example
 
 ```python
 import sys
@@ -27,7 +27,7 @@ sys.path.append(path_to_FermatFolder)
 from fermat import Fermat
 ```
 
-However, if you are working in Ubuntu (or any similar distribution) you can install the Fermat package running the following command in a terminal 
+However, if you are working on Ubuntu (or any similar distribution) you can install the `Fermat package` running the following command in a terminal 
 
 `python3 setup.py build && sudo python3 setup.py install`
 
@@ -44,15 +44,15 @@ Permorf the _Floyd-Warshall algorithm_ that gives the exact Fermat distance esti
 
 ##### Dijkstra
    
-With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with k = O(log n). Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The total running time is O( n * ( k *n * log n ) )
+With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with k = O(log n). Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The total running time is O( n * ( k * n * log n ) )
 
 ##### Landmarks
 
-If the number of points n is too high and neither Floyd-Warshall and Dijkstra runs in appropiate times, we implemente a gready version based on  landmarks. Let consider a set of l of point in the data set (the landmarks) and denote s_j the distance of the point s to the landmark j. Then, we can bound the distance d(s,t) between any two points s and t as
+If the number of points n is too high and neither Floyd-Warshall and Dijkstra run in appropiate times, we implemente a gready version based on landmarks. Let consider a set of l of point in the data set (the landmarks) and denote `s_j` the distance of the point `s` to the landmark `j`. Then, we can bound the distance `d(s,t)` between any two points `s` and `t` as
 
 `lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper`
 
-and estimate d(s,t) as a function of _lower_ and _upper_ (for example, d(s,t) ~ (_lower + upper_) / 2 ). The complexity is O( l * ( k * n * log n ) ).
+and estimate `d(s,t)` as a function of `lower` and `upper` (for example, `d(s,t) ~ (_lower + upper_) / 2` ). The complexity is `O( l * ( k * n * log n ) )`.
 
 
 #### Parameters
