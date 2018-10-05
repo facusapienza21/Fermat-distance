@@ -31,11 +31,6 @@ However, if you are working in Ubuntu (or any similar distribution) you can inst
 
 `python3 setup.py build && sudo python3 setup.py install`
 
-If you are working in Anaconda, then:
-...
-
-If you are 
-
 
 ### Implementation
 
@@ -55,7 +50,7 @@ With probability arbitrary high we can restrict the minimum path search to paths
 
 If the number of points n is too high and neither Floyd-Warshall and Dijkstra runs in appropiate times, we implemente a gready version based on  landmarks. Let consider a set of l of point in the data set (the landmarks) and denote s_j the distance of the point s to the landmark j. Then, we can bound the distance d(s,t) between any two points s and t as
 
-lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper
+`lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper`
 
 and estimate d(s,t) as a function of _lower_ and _upper_ (for example, d(s,t) ~ (_lower + upper_) / 2 ). The complexity is O( l * ( k * n * log n ) ).
 
