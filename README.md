@@ -4,7 +4,7 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 
 ### Table of contents
 
-1. [Implementation][#implementation]
+1. [Implementation](#implementation)
 
 ---
 ### Implementation
