@@ -6,7 +6,7 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 
 1. [Instalation](#instalation)
 2. [Implementation](#implementation)
-   * [Algorithm](#algorithm):
+   * [Algorithm](#algorithm)
         i. [Floyd-Warshall](#floyd-warshall)
         ii. [Dijkstra](#dijkstra)
         iii. [Landmarks](#landmarks)
@@ -19,13 +19,22 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 
 ### Installation
 
-###### Ubuntu
+You can import Fermat directly from the folder we you have the repository. For example
 
-Run`'python3 setup.py build && sudo python3 setup.py install'`
+'''python
+import sys
+sys.path.append(path_to_FermatFolder)
+from fermat import Fermat
+'''
+
+However, if you are working in Ubuntu (or any similar distribution) you can install the Fermat package running the following command in a terminal 
+
+`'python3 setup.py build && sudo python3 setup.py install'`
 
 If you are working in Anaconda, then:
-
 ...
+
+If you are 
 
 
 ### Implementation
