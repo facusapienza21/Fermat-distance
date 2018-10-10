@@ -7,15 +7,9 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
 1. [Introduction](#introduction)
 2. [Instalation](#instalation)
 3. [Implementation](#implementation)
-   * [Algorithm](#algorithm)
-     - [Floyd-Warshall](#floyd-warshall)
-     - [Dijkstra](#dijkstra)
-     - [Landmarks](#landmarks)
-   * [Parameters](#parameters)
-   * [Methods](#methods)
 4. [Features](#features)
 5. [Support](#support)
-6. [Licence](#licence)
+6. [Citting Fermat distance](#licence)
   
 
 ### Introduction
@@ -56,20 +50,17 @@ However, if you are working on Ubuntu (or any similar distribution) you can inst
 
 ### Implementation
 
-#### Algorithm
 
-The optimization performet to compute the Fermat distance estimator (see https://openreview.net/pdf?id=BJfaMIJwG) runs all over the possible paths of points between each pair of points. There are many ways to face this problem:
+The optimization performed to compute the Fermat distance estimator runs all over the possible paths of points between each pair of points. We implement an algorithm that computes the exact Fermat distance and two that compute approximations.
 
-##### Floyd-Warshall
-
+#### Exact: Floyd-Warshall
 Permorf the _Floyd-Warshall algorithm_ that gives the exact Fermat distance estimator in `O( n^3 )` operations between all possible paths that conects each pair of points.
 
-##### Dijkstra
-   
+#### Aprox: Dijsktra + k-nearest neighbours
+  
 With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with `k = O(log n)`. Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The total running time is `O( n * ( k * n * log n ) )`.
 
-##### Landmarks
-
+#### Aprox: Landmarks
 If the number of points n is too high and neither Floyd-Warshall and Dijkstra run in appropiate times, we implemente a gready version based on landmarks. Let consider a set of l of point in the data set (the landmarks) and denote `s_j` the distance of the point `s` to the landmark `j`. Then, we can bound the distance `d(s,t)` between any two points `s` and `t` as
 
 `lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper`
@@ -90,7 +81,7 @@ and estimate `d(s,t)` as a function of `lower` and `upper` (for example, `d(s,t)
 If you have an open-ended or a research question:
 -  `'f.sapienza@aristas.com.ar'`
 
-### Licence
+### Citting Fermat distance
 
 When [citing fermat in academic papers and theses], please use this
 BibTeX entry:
