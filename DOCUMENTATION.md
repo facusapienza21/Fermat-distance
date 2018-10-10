@@ -1,8 +1,11 @@
 # Fermat distance documentation
 
+**class Fermat**
 
-#### Parameters
+__init__(self, alpha, path_method='L', k=None, landmarks=None, estimator='up', seed=None)
 
+Parameters
+   
   - alpha: float
       Parameter of the Fermat distance.
 
@@ -60,10 +63,11 @@
       - np.matrix, Fermat distance between all pairs of points
 
 
-### Features
-
-- Exact and approximate algorithms to compute the Fermat distance.
+### Example of use
 - Examples explaining how to use this package.
     * [Quick start] 
+    * [MNIST data set]
+    
 
 [Quick start]:https://github.com/facusapienza21/Fermat-distance/tree/master/examples
+[MNIST data set]: https://github.com/facusapienza21/Fermat-distance/blob/master/examples/MNIST_example.ipynb

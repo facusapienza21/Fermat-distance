@@ -1,25 +1,41 @@
 # Fermat distance
-
 Fermat is a Python library that computes the Fermat distance estimator (also called d-distance estimator) proposed in _Weighted Geodesic Distance Following Fermat's Principle_ (see https://openreview.net/pdf?id=BJfaMIJwG).
 
-$ \Gamma $
 
 ### Table of contents
 
-1. [Instalation](#instalation)
-2. [Implementation](#implementation)
-   * [Algorithm](#algorithm)
-     - [Floyd-Warshall](#floyd-warshall)
-     - [Dijkstra](#dijkstra)
-     - [Landmarks](#landmarks)
-   * [Parameters](#parameters)
-   * [Methods](#methods)
-3. [Features](#features)
-4. [Support](#support)
-5. [Licence](#licence)
+1. [Introduction](#introduction)
+2. [Instalation](#instalation)
+3. [Implementation](#implementation)
+4. [Features](#features)
+5. [Support](#support)
+6. [Citting Fermat distance](#licence)
   
 
+### Introduction
+---------------
+
+A density-based estimator for weighted geodesic distances is proposed.
+Let M be a D-dimensional manifold and consider a sample of N points X_n living in M. Let l(.,.) be a distance defined 
+in M (a typical choice could be Euclidean distance). For d>=1 and given two points p and q in M we define the Fermat 
+distance estimator as 
+![](images/estimator.png)
+
+The minimization is done over all K>=2 and all finite sequences of data points with x1= argmin l(x,p) 
+and xK = argmin l(x,q).
+
+When d=1, we recover the distance l(.,.) but if d>1, the Fermat distance tends to follow more closely the manifold 
+structure and regions with high density values.
+
+
+
+
+![](images/IlustrationManifoldNormals.svg) 
+
+
+
 ### Installation
+---------------
 
 You can import Fermat directly from the folder where you have the repository. For example
 
@@ -35,21 +51,18 @@ However, if you are working on Ubuntu (or any similar distribution) you can inst
 
 
 ### Implementation
+---------------
 
-#### Algorithm
+The optimization performed to compute the Fermat distance estimator runs all over the possible paths of points between each pair of points. We implement an algorithm that computes the exact Fermat distance and two that compute approximations.
 
-The optimization performet to compute the Fermat distance estimator (see https://openreview.net/pdf?id=BJfaMIJwG) runs all over the possible paths of points between each pair of points. There are many ways to face this problem:
-
-##### Floyd-Warshall
-
+- #### Exact: Floyd-Warshall
 Permorf the _Floyd-Warshall algorithm_ that gives the exact Fermat distance estimator in `O( n^3 )` operations between all possible paths that conects each pair of points.
 
-##### Dijkstra
-   
-With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with `k = O(log n)`. Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The total running time is `O( n * ( k * n * log n ) )`.
+- #### Aprox: Dijsktra + k-nearest neighbours
+  
+With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with `k = O(log n)`. Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The complexity is `O( n * ( k * n * log n ) )`.
 
-##### Landmarks
-
+- #### Aprox: Landmarks
 If the number of points n is too high and neither Floyd-Warshall and Dijkstra run in appropiate times, we implemente a gready version based on landmarks. Let consider a set of l of point in the data set (the landmarks) and denote `s_j` the distance of the point `s` to the landmark `j`. Then, we can bound the distance `d(s,t)` between any two points `s` and `t` as
 
 `lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper`
@@ -57,78 +70,23 @@ If the number of points n is too high and neither Floyd-Warshall and Dijkstra ru
 and estimate `d(s,t)` as a function of `lower` and `upper` (for example, `d(s,t) ~ (_lower + upper_) / 2` ). The complexity is `O( l * ( k * n * log n ) )`.
 
 
-#### Parameters
-
-  - alpha: float
-      Parameter of the Fermat distance.
-
-  - path_method: string ['FW','D','L']
-
-      Options are:
-
-      - 'FW': Computes the exact Fermat distance using the Floyd-Warshall algorithm. 
-
-      - 'D': Computes an approximation of the Fermat distance using k nearest neighbours and the
-                       Dijkstra algorithm. 
-
-      - 'L': Computes an approximation of the Fermat distance using landmarks and k-nn.
-
-  - k: integer, optional
-      Number of nearest neighbors to be considered.
-      Incompatible with path_method == 'FW'
-
-  - landmarks: integer, optional
-      Number of landmarks considered in the Fermat distance computation.
-      Only available when path_method = 'L'
-
-  - estimator: string ['up', 'down', 'mean', 'no_lca'] (default: 'up')
-
-      When computing an approximation of the Fermat distance, there are lower and upper bounds of the true value.
-      - If estimator == 'no_lca', the distance for a pair of points is calculated as the minimum sum of the distance from both points to one of the landmarks.
-      - If estimator == 'up', the distance for a pair of points is calculated as the minimum sum of the distance from both points to the lowest common ancestor in the distance tree of one of the landmarks.
-      - If estimator == 'down', the distance for a pair of points is calculated as the maximum difference of thedistance from both points to one of the landmarks.
-      - If estimator == 'mean', the  mean between 'up' and 'down' estimators.
-
-      Only available when path_method = 'L'
-
-  - seed: int, optional
-      Only available when path_method = 'L'
-
-#### Methods
-
-  - fit(X)
-    - Parameters
-      - X: input distances matrix
-    - Return
-      - self
-
-  - get_distance(a, b)
-    - Parameters
-      - a: int, index of the first data point
-      - b: int, index of the second data point
-    - Return
-      - float, the Fermat distance between poins a and b
-      
-  - get_distances()
-    - Parameters
-      - None
-    - Return
-      - np.matrix, Fermat distance between all pairs of points
-
-
 ### Features
+---------------
 
 - Exact and approximate algorithms to compute the Fermat distance.
 - Examples explaining how to use this package.
     * [Quick start] 
     * [MNIST data set]
+- [Documentation]
 
 ### Support
+---------------
 
 If you have an open-ended or a research question:
 -  `'f.sapienza@aristas.com.ar'`
 
-### Licence
+### Citting Fermat distance
+---------------
 
 When [citing fermat in academic papers and theses], please use this
 BibTeX entry:
@@ -141,6 +99,7 @@ BibTeX entry:
           url={https://openreview.net/forum?id=BJfaMIJwG}
     }
 
-[Quick start]:https://github.com/facusapienza21/Fermat-distance/tree/master/examples
+[Quick start]:https://github.com/facusapienza21/Fermat-distance/blob/master/examples/Fermat_quick_start.ipynb
 [citing fermat in academic papers and theses]:https://scholar.google.com/citations?user=yWj-T4oAAAAJ&hl=en#d=gs_md_cita-d&p=&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26user%3DyWj-T4oAAAAJ%26citation_for_view%3DyWj-T4oAAAAJ%3Au5HHmVD_uO8C%26tzom%3D180
+[Documentation]:https://github.com/facusapienza21/Fermat-distance/blob/master/DOCUMENTATION.md
 [MNIST data set]: https://github.com/facusapienza21/Fermat-distance/blob/master/examples/MNIST_example.ipynb
