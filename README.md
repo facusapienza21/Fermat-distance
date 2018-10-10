@@ -13,6 +13,7 @@ Fermat is a Python library that computes the Fermat distance estimator (also cal
   
 
 ### Introduction
+---------------
 
 A density-based estimator for weighted geodesic distances is proposed.
 Let M be a D-dimensional manifold and consider a sample of N points X_n living in M. Let l(.,.) be a distance defined 
@@ -34,6 +35,7 @@ structure and regions with high density values.
 
 
 ### Installation
+---------------
 
 You can import Fermat directly from the folder where you have the repository. For example
 
@@ -49,18 +51,18 @@ However, if you are working on Ubuntu (or any similar distribution) you can inst
 
 
 ### Implementation
-
+---------------
 
 The optimization performed to compute the Fermat distance estimator runs all over the possible paths of points between each pair of points. We implement an algorithm that computes the exact Fermat distance and two that compute approximations.
 
-#### Exact: Floyd-Warshall
+- #### Exact: Floyd-Warshall
 Permorf the _Floyd-Warshall algorithm_ that gives the exact Fermat distance estimator in `O( n^3 )` operations between all possible paths that conects each pair of points.
 
-#### Aprox: Dijsktra + k-nearest neighbours
+- #### Aprox: Dijsktra + k-nearest neighbours
   
 With probability arbitrary high we can restrict the minimum path search to paths where each consecutive pair of points are k-nearest neighbours, with `k = O(log n)`. Then, we use _Dijkstra algorithm_ on the graph of k-nearest neighbours from each point. The complexity is `O( n * ( k * n * log n ) )`.
 
-#### Aprox: Landmarks
+- #### Aprox: Landmarks
 If the number of points n is too high and neither Floyd-Warshall and Dijkstra run in appropiate times, we implemente a gready version based on landmarks. Let consider a set of l of point in the data set (the landmarks) and denote `s_j` the distance of the point `s` to the landmark `j`. Then, we can bound the distance `d(s,t)` between any two points `s` and `t` as
 
 `lower = max_j { | s_j - t_j | } <= d(s,t) <= min_j { s_j + t_j } = upper`
@@ -69,6 +71,7 @@ and estimate `d(s,t)` as a function of `lower` and `upper` (for example, `d(s,t)
 
 
 ### Features
+---------------
 
 - Exact and approximate algorithms to compute the Fermat distance.
 - Examples explaining how to use this package.
@@ -77,11 +80,13 @@ and estimate `d(s,t)` as a function of `lower` and `upper` (for example, `d(s,t)
 - [Documentation]
 
 ### Support
+---------------
 
 If you have an open-ended or a research question:
 -  `'f.sapienza@aristas.com.ar'`
 
 ### Citting Fermat distance
+---------------
 
 When [citing fermat in academic papers and theses], please use this
 BibTeX entry:
