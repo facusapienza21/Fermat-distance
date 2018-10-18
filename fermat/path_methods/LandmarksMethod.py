@@ -9,13 +9,14 @@ from fermat.path_methods.DistanceCalculatorMethod import DistanceCalculatorMetho
 
 class DistanceOnTree:
 
-    def __init__(self, root, prev, distances):
+    def __init__(self, root, prev, distances, use_rmq=True):
         self.n = len(prev)
         self.et = self.euler_tour(root, prev)
         self.root = root
         self.distances = distances
-        self.right = self.get_right(self.et, self.n)
-        self.rmq = self.get_rmq([distances[x] for x in self.et])
+        if use_rmq:
+            self.right = self.get_right(self.et, self.n)
+            self.rmq = self.get_rmq([distances[x] for x in self.et])
 
     def euler_tour(self, root, prev):
         children = [[] for _ in prev]
@@ -41,17 +42,6 @@ class DistanceOnTree:
             res[node] = index
         return res
 
-    def get_rmq_posta(self, xs):
-        res = [xs[:]]
-        n = len(xs)
-        p = 1
-        while p < n:
-            res.append(
-                [min(res[-1][i], res[-1][i + p]) if i + p < n else res[-1][i] for i in range(n)]
-            )
-            p *= 2
-        return res
-
     def get_rmq(self, xs):
         r = np.array(xs)
         res = [r]
@@ -64,7 +54,6 @@ class DistanceOnTree:
             p *= 2
 
         return res
-
 
     def get_lca_distance(self, a, b):
         x, y = sorted([self.right[a], self.right[b]])
@@ -153,7 +142,8 @@ class LandmarksMethod(DistanceCalculatorMethod):
         )
 
         for i in range(len(landmarks)):
-            landmark_tree = DistanceOnTree(landmarks[i], prev=prev[i], distances=distance[i])
+            use_rmq = self.fermat.estimator != 'no_lca'
+            landmark_tree = DistanceOnTree(landmarks[i], prev=prev[i], distances=distance[i], use_rmq=use_rmq)
             self.landmarks_trees.append(landmark_tree)
 
     def up(self, a, b):
@@ -181,9 +171,4 @@ class LandmarksMethod(DistanceCalculatorMethod):
             for j in range(i):
                 res[i, j] = res[j, i] = self.get_distance(i, j)
         return res
-
-
-
-
-
 

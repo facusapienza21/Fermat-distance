@@ -1,0 +1,2 @@
+include cpp_source/*.so
+include fermat/cclasses/lib/*.so

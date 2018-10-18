@@ -8,11 +8,13 @@ class Methods:
         from fermat.path_methods.DijkstraMethod import DijkstraMethod
         from fermat.path_methods.FloydWarshallMethod import FloydWarshallMethod
         from fermat.path_methods.LandmarksMethod import LandmarksMethod
+        from fermat.path_methods.CLandmarksMethod import CLandmarksMethod
 
         self.methods = {
             'L': LandmarksMethod,
             'FW': FloydWarshallMethod,
-            'D': DijkstraMethod
+            'D': DijkstraMethod,
+            'CL': CLandmarksMethod
         }
 
     def byName(self, name, fermat) -> DistanceCalculatorMethod:
