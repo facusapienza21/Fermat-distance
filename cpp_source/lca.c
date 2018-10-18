@@ -143,10 +143,6 @@ double *map_index_to_values(int *index, double *values, int index_size){
 
 double get_distance(lca tree, int a, int b){
     double res = tree.distances[a] + tree.distances[b] - 2*get_lca_distance(tree, a, b);
-    // printf("[C:] tree.distances[%d] = %.5e\n", a, tree.distances[a]);
-    // printf("[C:] tree.distances[%d] = %.5e\n", b, tree.distances[b]);
-    // printf("[C:] get_lca_distance(tree, %d, %d) = %.5e\n", a, b, get_lca_distance(tree, a, b));
-    // printf("[C:] get_distance(%d, %d) = %.5e\n", a, b, res);
     return res;
 }
 
@@ -184,4 +180,15 @@ void free_lca(lca tree)
     free(tree.et);
     free(tree.right);
     free_rmq(tree.rmq);
+}
+
+void get_distances(lca tree, double* res){
+    for(size_t i = 0; i < tree.n; i++)
+    {
+        res[i*tree.n + i] = 0;
+        for(size_t j = 0; j < i; j++)
+        {
+            res[i*tree.n + j] = res[j*tree.n + i] = get_distance(tree, i, j);
+        }
+    }
 }

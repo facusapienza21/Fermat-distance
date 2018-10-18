@@ -44,7 +44,6 @@ class LCA:
 
     def __init__(self, root, prev, distances):
         prev[root] = root
-
         n = len(prev)
         assert len(distances) == n
         self.c_lca = c_fl.create_lca(
@@ -53,13 +52,17 @@ class LCA:
             C.c_int(n),
             (C.c_double * n)(*distances)
         )
-
+        
     def __del__(self):
         c_fl.free_lca(self.c_lca)
 
     def get_distance(self, a, b):
         return c_fl.get_distance(self.c_lca, a, b)
 
+    def get_distances(self):
+        res = (C.c_double * self.c_lca.n**2)()
+        c_fl.get_distances(self.c_lca, res)
+        return res
         
 class RMQ:
 

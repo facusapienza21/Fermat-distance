@@ -95,9 +95,16 @@ class CLandmarksMethod(DistanceCalculatorMethod):
     def get_distance(self, a, b):
         return self.up(a, b)
         
-    def get_distances(self):
-        res = np.matrix(np.zeros((self.n, self.n)))
-        for i in range(self.n):
-            for j in range(i):
-                res[i, j] = res[j, i] = self.get_distance(i, j)
-        return res
+    def get_distances(self, on_c=True):
+        # res = np.matrix(np.zeros((self.n, self.n)))
+        # for i in range(self.n):
+        #     for j in range(i):
+        #         res[i, j] = res[j, i] = self.get_distance(i, j)
+        # return res
+    
+        print('[with C]')
+        res = None
+        for tree in self.landmarks_trees:
+            res_on_tree = np.array(tree.get_distances())
+            res = res_on_tree if res is None else np.min([res, res_on_tree], axis=0)
+        return np.reshape(res, (self.n, self.n))
