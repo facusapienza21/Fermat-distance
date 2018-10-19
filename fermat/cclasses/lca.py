@@ -52,6 +52,7 @@ class LCA:
             C.c_int(n),
             (C.c_double * n)(*distances)
         )
+        self.root = root
         
     def __del__(self):
         c_fl.free_lca(self.c_lca)
@@ -63,7 +64,11 @@ class LCA:
         res = (C.c_double * self.c_lca.n**2)()
         c_fl.get_distances(self.c_lca, res)
         return res
+
+    def root_distance(self, a):
+        return self.c_lca.distances[a]
         
+
 class RMQ:
 
     def __init__(self, xs):

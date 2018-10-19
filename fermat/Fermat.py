@@ -125,3 +125,7 @@ class Fermat:
         """
 
         return self.path_method.get_distances()
+
+
+    def clusterize(self, k, iterations, seed=None):
+        return self.path_method.clusterize(k, iterations, seed)

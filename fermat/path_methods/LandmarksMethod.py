@@ -5,7 +5,7 @@ from scipy.sparse import csr_matrix, dok_matrix
 from scipy.sparse.csgraph import shortest_path
 
 from fermat.path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
-
+from fermat.clustering import do_k_medoids
 
 class DistanceOnTree:
 
@@ -63,6 +63,8 @@ class DistanceOnTree:
     def get_distance(self, a, b):
         return 0 if a == b else self.distances[a] + self.distances[b] - 2 * self.get_lca_distance(a, b)
 
+    def root_distance(self, a):
+        return self.distances[a]
 
 class LandmarksMethod(DistanceCalculatorMethod):
 
@@ -172,3 +174,5 @@ class LandmarksMethod(DistanceCalculatorMethod):
                 res[i, j] = res[j, i] = self.get_distance(i, j)
         return res
 
+    def clusterize(self, k, seed):
+        return do_k_medoids(self.landmarks_trees, self.n, k, seed)
