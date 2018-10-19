@@ -1,10 +1,6 @@
 import ctypes as C
 import os
 
-c_lib_path = os.path.join(os.path.dirname(__file__), 'lib', 'fermatlib.so')
-
-c_fl = C.CDLL(c_lib_path)
-
 class c_RMQ(C.Structure):
     _fields_ = [
         ('table', C.POINTER(C.c_double)),
@@ -24,21 +20,28 @@ class c_LCA(C.Structure):
         ('rmq', c_RMQ)
     ]
 
+def init_fermat_c_lib():
+    c_lib_path = os.path.join(os.path.dirname(__file__), 'lib', 'fermatlib.so')
+    if os.path.isfile(c_lib_path):
+        c_lib = C.CDLL(c_lib_path)
 
-c_fl.create_rmq.restype = c_RMQ
+        c_lib.create_rmq.restype = c_RMQ
 
-c_fl.free_rmq.argtypes = [c_RMQ]
+        c_lib.free_rmq.argtypes = [c_RMQ]
 
-c_fl.query_rmq.argtypes = [c_RMQ, C.c_int, C.c_int]
-c_fl.query_rmq.restype = C.c_double
+        c_lib.query_rmq.argtypes = [c_RMQ, C.c_int, C.c_int]
+        c_lib.query_rmq.restype = C.c_double
 
-c_fl.create_lca.restype = c_LCA
+        c_lib.create_lca.restype = c_LCA
 
-c_fl.free_lca.argtypes = [c_LCA]
+        c_lib.free_lca.argtypes = [c_LCA]
 
-c_fl.get_distance.argtypes = [c_LCA, C.c_int, C.c_int]
-c_fl.get_distance.restype = C.c_double
+        c_lib.get_distance.argtypes = [c_LCA, C.c_int, C.c_int]
+        c_lib.get_distance.restype = C.c_double
 
+        return c_lib
+
+c_fl = init_fermat_c_lib()
 
 class LCA:
 
@@ -55,7 +58,8 @@ class LCA:
         self.root = root
         
     def __del__(self):
-        c_fl.free_lca(self.c_lca)
+        if self.c_lca:
+            c_fl.free_lca(self.c_lca)
 
     def get_distance(self, a, b):
         return c_fl.get_distance(self.c_lca, a, b)

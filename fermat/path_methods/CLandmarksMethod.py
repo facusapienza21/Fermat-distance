@@ -6,8 +6,8 @@ from scipy.sparse.csgraph import shortest_path
 
 from fermat.path_methods.DistanceCalculatorMethod import DistanceCalculatorMethod
 
-from fermat.cclasses import LCA
 from fermat.clustering import do_k_medoids
+from fermat.cclasses import LCA
 
 class CLandmarksMethod(DistanceCalculatorMethod):
 
