@@ -1,6 +1,7 @@
 # Fermat distance
-Fermat is a Python library that computes the Fermat distance estimator (also called d-distance estimator) proposed in _Weighted Geodesic Distance Following Fermat's Principle_ (see https://openreview.net/pdf?id=BJfaMIJwG).
-
+Fermat is a Python library that computes the Fermat distance estimator (also called d-distance estimator) proposed in 
+  * _Weighted Geodesic Distance Following Fermat's Principle_ (see https://openreview.net/pdf?id=BJfaMIJwG).
+  * _Nonhomogeneous Euclidean first-passage percolation and distance learning_ (see https://arxiv.org/abs/1810.09398) 
 
 ### Table of contents
 
