@@ -174,5 +174,5 @@ class LandmarksMethod(DistanceCalculatorMethod):
                 res[i, j] = res[j, i] = self.get_distance(i, j)
         return res
 
-    def clusterize(self, k, seed):
-        return do_k_medoids(self.landmarks_trees, self.n, k, seed)
+    def clusterize(self, k, iterations, seed):
+        return do_k_medoids(self.landmarks_trees, self.n, k, iterations, seed)

@@ -2,6 +2,7 @@ from typing import List
 import random
 import numpy as np
 
+
 def select_random_medoids(landmarks, k, seed):
     r = random.Random(seed) if seed else random.Random()
     return r.sample(landmarks, k)
@@ -30,12 +31,14 @@ def assing_center_to_cluster(landmarks, centers, n, closest):
     distincts = list({np.argmin(d) for d in clusters_distances}) 
     return [landmarks[d] for d in distincts]
 
+
 def do_k_medoids(landmarks, n: int, k: int, iterations: int, seed=None):
     
     centers = select_random_medoids(landmarks, k, seed)
-    
+    closest = assign_closest_cluster_to_points(centers, n)
+
     for _ in range(iterations):
-        closest = assign_closest_cluster_to_points(centers, n)
         centers = assing_center_to_cluster(landmarks, centers, n, closest)
+        closest = assign_closest_cluster_to_points(centers, n)
     
     return [centers[closest[i]].root for i in range(n)]

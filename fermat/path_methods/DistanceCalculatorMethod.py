@@ -13,5 +13,5 @@ class DistanceCalculatorMethod:
     def get_distances(self):
         raise NotImplementedError()
 
-    def clusterize(self, k, seed):
+    def clusterize(self, k, iterations, seed):
         raise NotImplementedError()
